@@ -1,3 +1,4 @@
+
 """
 Task Option 3 - Cricket
 Your program must keep track of the two opposing teams. The user should be able to enter data on a ball-by-ball basis. 
@@ -6,5 +7,6 @@ The program should keep track of overs, providing indication when it’s time to
 It should also keep track of outs, storing the bowler’s name whenever a batter gets out.
 
 """
-from tkinter import *
-#This is a commit
+import customtkinter as ct
+
+
