@@ -7,6 +7,3 @@ The program should keep track of overs, providing indication when it’s time to
 It should also keep track of outs, storing the bowler’s name whenever a batter gets out.
 
 """
-import customtkinter as ct
-
-

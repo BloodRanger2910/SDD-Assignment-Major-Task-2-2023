@@ -16,3 +16,10 @@ https://docs.google.com/document/d/1b2G7RldhMUEx8dHod3hV5wlguwbwBsgTqMFdBvOQqEQ/
 
 Gantt Chart
 https://docs.google.com/spreadsheets/d/1FCMbgyH4j2YV1HleGjuf02B3fKtRB_mU_tyVU9fZxNo/edit?usp=sharing
+
+Documentation to convert to a .exe
+https://customtkinter.tomschimansky.com/documentation/packaging/
+
+CustomTkinter Documentation
+https://customtkinter.tomschimansky.com/
+
