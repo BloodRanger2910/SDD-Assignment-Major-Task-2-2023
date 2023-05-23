@@ -9,15 +9,61 @@ It should also keep track of outs, storing the bowler’s name whenever a batter
 """
 import customtkinter as ctk
 
+class App:
+    def __init__(self):
+        self.app = ctk.CTk()  # Create the application window
+
+        # Create the frames for team selection and main menu
+        self.team_selection_frame = ctk.CTkFrame(self.app)
+        self.main_menu_frame = MainMenuFrame(self.app, self.team_selection_frame)
+        self.team_input_frame = TeamInputFrame(self.team_selection_frame)
+
+        self.main_menu_frame.play_button.configure(command=self.switch_to_team_selection)
+
+    def run(self):
+        # Display the main menu frame
+        self.main_menu_frame.pack(padx=10, pady=10)
+        self.app.mainloop()  # Start the application main loop
+
+    def switch_to_team_selection(self):
+        # Switch to the team selection frame
+        self.main_menu_frame.pack_forget()
+        self.team_selection_frame.pack()
+        self.team_input_frame.pack(padx=10, pady=10)
+
+
+class MainMenuFrame(ctk.CTkFrame):
+    def __init__(self, master, team_selection_frame):
+        super().__init__(master)  # Initialize the parent class
+        self.grid_columnconfigure(0, weight=1)
+        self.team_selection_frame = team_selection_frame
+
+        # Play button
+        self.play_button = ctk.CTkButton(self, text="Play")
+        self.play_button.pack(pady=10)
+
+        # How to Use button
+        self.how_to_use_button = ctk.CTkButton(self, text="How to Use")
+        self.how_to_use_button.pack(pady=10)
+
+        # Quit button
+        self.quit_button = ctk.CTkButton(self, text="Quit", command=self.quit_game)
+        self.quit_button.pack(pady=10)
+
+    def quit_game(self):
+        self.master.quit()
+
+
 class TeamInputFrame(ctk.CTkFrame):
     def __init__(self, master):
-        super().__init__(master)
+        super().__init__(master)  # Initialize the parent class
         self.grid_columnconfigure((0, 1), weight=1)
 
         # Team 1 Frame
         self.team1_frame = ctk.CTkFrame(self)
         self.team1_frame.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
+        # Team 1 Label and Entry
         self.team1_label = ctk.CTkLabel(self.team1_frame, text="Team 1:")
         self.team1_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
         self.team1_entry = ctk.CTkEntry(self.team1_frame)
@@ -37,6 +83,7 @@ class TeamInputFrame(ctk.CTkFrame):
         self.team2_frame = ctk.CTkFrame(self)
         self.team2_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
 
+        # Team 2 Label and Entry
         self.team2_label = ctk.CTkLabel(self.team2_frame, text="Team 2:")
         self.team2_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
         self.team2_entry = ctk.CTkEntry(self.team2_frame)
@@ -68,9 +115,6 @@ class TeamInputFrame(ctk.CTkFrame):
         return player_names_team1, player_names_team2
 
 
-# Example usage
-app = ctk.CTk()
-team_frame = TeamInputFrame(app)
-team_frame.pack(padx=10, pady=10)
-
-app.mainloop()
+# Create and run the application
+app = App()
+app.run()
