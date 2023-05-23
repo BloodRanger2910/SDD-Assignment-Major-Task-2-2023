@@ -14,6 +14,9 @@ https://lucid.app/lucidchart/168a3e88-9439-4e33-86c3-8609f00a8d00/edit?viewport_
 SDD Journal (Make sure to track progress every time you do something with the assignment)
 https://docs.google.com/document/d/1b2G7RldhMUEx8dHod3hV5wlguwbwBsgTqMFdBvOQqEQ/edit?usp=sharing
 
+Trello Board
+https://trello.com/invite/b/xdISoQ3x/ATTIb9a6fe032d690304645b02f290596cde5A7CC34F/sdd-assignment
+
 Gantt Chart
 https://docs.google.com/spreadsheets/d/1FCMbgyH4j2YV1HleGjuf02B3fKtRB_mU_tyVU9fZxNo/edit?usp=sharing
 

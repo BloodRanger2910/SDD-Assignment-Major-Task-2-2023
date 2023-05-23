@@ -11,8 +11,17 @@ import customtkinter as ctk
 
 class App:
     def __init__(self):
+       
         self.app = ctk.CTk()  # Create the application window
+        self.app.title("My Cricket Application")  # Set the desired title
 
+        #get screen dimensions
+        screen_width = self.app.winfo_screenwidth()
+        screen_height = self.app.winfo_screenheight()
+
+        #set the window size to match the screen
+        self.app.geometry(f'{screen_width}x{screen_height}')
+        
         # Create the frames for team selection and main menu
         self.team_selection_frame = ctk.CTkFrame(self.app)
         self.main_menu_frame = MainMenuFrame(self.app, self.team_selection_frame)
@@ -65,9 +74,9 @@ class TeamInputFrame(ctk.CTkFrame):
 
         # Team 1 Label and Entry
         self.team1_label = ctk.CTkLabel(self.team1_frame, text="Team 1:")
-        self.team1_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+        self.team1_label.grid(row=0, column=0, padx=5, pady=10, sticky="w")
         self.team1_entry = ctk.CTkEntry(self.team1_frame)
-        self.team1_entry.grid(row=0, column=1, padx=10, pady=10, sticky="w")
+        self.team1_entry.grid(row=0, column=1, padx=5, pady=10, sticky="w")
 
         self.player1_label = ctk.CTkLabel(self.team1_frame, text="Player Names:")
         self.player1_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="w")
