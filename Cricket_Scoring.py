@@ -22,7 +22,7 @@ class App:
         #set the window size to match the screen
         self.app.geometry(f'{screen_width}x{screen_height}')
         
-        # Create the frames for team selection and main menu
+        # Create the frames for ther application (ADD MORE FRAMES HERE)
         self.team_selection_frame = ctk.CTkFrame(self.app)
         self.main_menu_frame = MainMenuFrame(self.app, self.team_selection_frame)
         self.team_input_frame = TeamInputFrame(self.team_selection_frame)
@@ -83,8 +83,7 @@ class TeamInputFrame(ctk.CTkFrame):
 
         self.player_entries_team1 = []
         for i in range(11):
-            label_text_team1 = f"Player {i+1}:"
-            entry_team1 = ctk.CTkEntry(self.team1_frame)
+            entry_team1 = ctk.CTkEntry(self.team1_frame, placeholder_text=f"Player {i+1}")
             entry_team1.grid(row=i+2, column=0, padx=10, pady=5, sticky="w")
             self.player_entries_team1.append(entry_team1)
 
@@ -92,7 +91,6 @@ class TeamInputFrame(ctk.CTkFrame):
         self.team2_frame = ctk.CTkFrame(self)
         self.team2_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
 
-        # Team 2 Label and Entry
         self.team2_label = ctk.CTkLabel(self.team2_frame, text="Team 2:")
         self.team2_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
         self.team2_entry = ctk.CTkEntry(self.team2_frame)
@@ -103,11 +101,13 @@ class TeamInputFrame(ctk.CTkFrame):
 
         self.player_entries_team2 = []
         for i in range(11):
-            label_text_team2 = f"Player {i+1}:"
-            entry_team2 = ctk.CTkEntry(self.team2_frame)
+            entry_team2 = ctk.CTkEntry(self.team2_frame, placeholder_text=f"Player {i+1}")
             entry_team2.grid(row=i+2, column=0, padx=10, pady=5, sticky="w")
             self.player_entries_team2.append(entry_team2)
-
+    
+        self.confirm_button = ctk.CTkButton(self, text="Confirm", command=self.switch_to_scoring_frame)
+        self.confirm_button.grid(row=1, column=0, columnspan=2, pady=10)        
+            
     def get_team_names(self):
         team1 = self.team1_entry.get()
         team2 = self.team2_entry.get()
@@ -122,6 +122,34 @@ class TeamInputFrame(ctk.CTkFrame):
             player_names_team1.append(name_team1)
             player_names_team2.append(name_team2)
         return player_names_team1, player_names_team2
+
+    def switch_to_scoring_frame(self):
+        team_names = self.get_team_names()
+        player_names = self.get_player_names()
+        self.pack_forget()
+        scoring_frame = ScoringFrame(self.master, team_names, player_names)
+        scoring_frame.pack(padx=10, pady=10)
+
+
+class ScoringFrame(ctk.CTkFrame):
+    def __init__(self, master, team_names, player_names):
+        super().__init__(master)
+        self.team_names = team_names
+        self.player_names = player_names
+
+        self.team_label = ctk.CTkLabel(self, text=f"Teams: {team_names[0]} vs {team_names[1]}")
+        self.team_label.pack(pady=10)
+
+        self.player_label = ctk.CTkLabel(self, text=f"Players: {player_names[0]} vs {player_names[1]}")
+        self.player_label.pack(pady=10)
+
+        self.back_button = ctk.CTkButton(self, text="Back", command=self.switch_to_team_input_frame)
+        self.back_button.pack(pady=10)
+
+    def switch_to_team_input_frame(self):
+        self.pack_forget()
+        team_input_frame = TeamInputFrame(self.master)
+        team_input_frame.pack(padx=10, pady=10)
 
 
 # Create and run the application
