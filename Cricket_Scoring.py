@@ -83,8 +83,9 @@ class TeamInputFrame(ctk.CTkFrame):
 
         self.player_entries_team1 = []
         for i in range(11):
-            entry_team1 = ctk.CTkEntry(self.team1_frame, placeholder_text=f"Player {i+1}")
-            entry_team1.grid(row=i+2, column=0, padx=10, pady=5, sticky="we")
+            label_text_team1 = f"Player {i+1}:"
+            entry_team1 = ctk.CTkEntry(self.team1_frame)
+            entry_team1.grid(row=i+2, column=0, padx=10, pady=5, sticky="w")
             self.player_entries_team1.append(entry_team1)
 
         # Team 2 Frame
