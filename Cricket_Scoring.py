@@ -73,37 +73,41 @@ class TeamInputFrame(ctk.CTkFrame):
         self.team1_frame.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
         # Team 1 Label and Entry
-        self.team1_label = ctk.CTkLabel(self.team1_frame, text="Team 1:")
-        self.team1_label.grid(row=0, column=0, padx=5, pady=10, sticky="w")
-        self.team1_entry = ctk.CTkEntry(self.team1_frame)
-        self.team1_entry.grid(row=0, column=1, padx=5, pady=10, sticky="w")
+        self.team1_label = ctk.CTkLabel(self.team1_frame, text="Team 1:", )
+        self.team1_label.grid(row=0, column=0, padx=5, pady=10)
+        self.team1_label.configure(font=("Arial", 30))
+        self.team1_entry = ctk.CTkEntry(self.team1_frame, width=250, height=50)
+        self.team1_entry.grid(row=0, column=1, padx=5, pady=10)
 
         self.player1_label = ctk.CTkLabel(self.team1_frame, text="Player Names:")
+        self.player1_label.configure(font=("Arial", 30))
         self.player1_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="w")
 
         self.player_entries_team1 = []
         for i in range(11):
-            label_text_team1 = f"Player {i+1}:"
-            entry_team1 = ctk.CTkEntry(self.team1_frame)
-            entry_team1.grid(row=i+2, column=0, padx=10, pady=5, sticky="w")
+            entry_team1 = ctk.CTkEntry(self.team1_frame, placeholder_text=f"Player {i+1}", width=250)
+            entry_team1.grid(row=i+2, column=0, columnspan=2, padx=10, pady=5, sticky="we")
             self.player_entries_team1.append(entry_team1)
 
         # Team 2 Frame
         self.team2_frame = ctk.CTkFrame(self)
         self.team2_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
 
+        # Team 2 Label and Entry
         self.team2_label = ctk.CTkLabel(self.team2_frame, text="Team 2:")
         self.team2_label.grid(row=0, column=0, padx=10, pady=10)
+        self.team2_label.configure(font=("Arial", 30))
         self.team2_entry = ctk.CTkEntry(self.team2_frame, width=250, height=50)
         self.team2_entry.grid(row=0, column=1, padx=10, pady=10)
 
         self.player2_label = ctk.CTkLabel(self.team2_frame, text="Player Names:")
+        self.player2_label.configure(font=("Arial", 30))
         self.player2_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="w")
 
         self.player_entries_team2 = []
         for i in range(11):
-            entry_team2 = ctk.CTkEntry(self.team2_frame, placeholder_text=f"Player {i+1}")
-            entry_team2.grid(row=i+2, column=0, padx=10, pady=5, sticky="w")
+            entry_team2 = ctk.CTkEntry(self.team2_frame, width=30, placeholder_text=f"Player {i+1}")
+            entry_team2.grid(row=i+2, column=0, columnspan=2, padx=10, pady=5, sticky="we")
             self.player_entries_team2.append(entry_team2)
     
         self.confirm_button = ctk.CTkButton(self, text="Confirm", command=self.switch_to_scoring_frame)
