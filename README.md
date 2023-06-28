@@ -12,7 +12,10 @@ Context Diagram
 https://lucid.app/lucidchart/8d5069d2-5171-4291-b0b4-ff9d86c6ac9b/edit?viewport_loc=-343%2C-114%2C2281%2C960%2C0_0&invitationId=inv_8a6e8c55-cebf-4040-91ad-af4c5a68ad95
 
 Data Flow Diagram
-https://lucid.app/lucidchart/acd3331a-0f19-4ef9-94e8-4ba72f3d1198/edit?invitationId=inv_5a9b332e-c77f-4382-a4e6-ebefa6966a4f
+https://lucid.app/lucidchart/c16c934b-0785-440f-952e-7784f47f0c78/edit?viewport_loc=-336%2C-69%2C3072%2C1535%2C0_0&invitationId=inv_bc38e167-b272-4812-b0de-f2b5b63bc27d
+
+Structure Chart
+https://lucid.app/lucidchart/f92fad78-0fe2-47a8-b45c-a34845218bca/edit?viewport_loc=-293%2C-128%2C3072%2C1535%2Cm-5o7ONTd-nK&invitationId=inv_359d5441-b491-4757-9850-48c0e3abe9c6
 
 SDD Journal (Make sure to track progress every time you do something with the assignment)
 https://docs.google.com/document/d/1b2G7RldhMUEx8dHod3hV5wlguwbwBsgTqMFdBvOQqEQ/edit?usp=sharing
