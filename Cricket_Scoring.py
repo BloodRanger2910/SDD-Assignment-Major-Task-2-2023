@@ -1,4 +1,3 @@
-
 """
 Task Option 3 - Cricket
 Your program must keep track of the two opposing teams. The user should be able to enter data on a ball-by-ball basis. 
@@ -8,7 +7,7 @@ It should also keep track of outs, storing the bowler’s name whenever a batter
 
 """
 import customtkinter as ctk
-
+import random
 class App:
     def __init__(self):
        
@@ -24,10 +23,23 @@ class App:
         
         # Create the frames for ther application (ADD MORE FRAMES HERE)
         self.team_selection_frame = ctk.CTkFrame(self.app)
+        self.toss_frame = TossFrame(self.team_selection_frame, team_names=[])  # Initially empty, updated during the toss
         self.main_menu_frame = MainMenuFrame(self.app, self.team_selection_frame)
         self.team_input_frame = TeamInputFrame(self.team_selection_frame)
 
         self.main_menu_frame.play_button.configure(command=self.switch_to_team_selection)
+        
+    def switch_to_toss(self):
+        # Switch to the toss frame
+        self.main_menu_frame.pack_forget()
+        self.toss_frame.pack()
+        self.toss_frame.perform_toss()  # Automatically perform the toss
+        
+    def switch_to_scoring_frame(self, team_names):
+        self.toss_frame.pack_forget()
+        scoring_frame = ScoringFrame(self.team_selection_frame, team_names, [])
+        scoring_frame.back_to_toss_callback = self.switch_to_toss  # Set the callback function
+        scoring_frame.pack(padx=10, pady=10)
 
     def run(self):
         # Display the main menu frame
@@ -39,7 +51,6 @@ class App:
         self.main_menu_frame.pack_forget()
         self.team_selection_frame.pack()
         self.team_input_frame.pack(padx=10, pady=10)
-
 
 class MainMenuFrame(ctk.CTkFrame):
     def __init__(self, master, team_selection_frame):
@@ -151,11 +162,39 @@ class ScoringFrame(ctk.CTkFrame):
         self.back_button = ctk.CTkButton(self, text="Back", command=self.switch_to_team_input_frame)
         self.back_button.pack(pady=10)
 
+        self.next_button = ctk.CTkButton(self, text="Next", command=self.switch_to_toss_frame)
+        self.next_button.pack(pady=10)
+
+        self.back_to_toss_callback = None  # Initialize the callback function variable
+        
     def switch_to_team_input_frame(self):
         self.pack_forget()
         team_input_frame = TeamInputFrame(self.master)
         team_input_frame.pack(padx=10, pady=10)
+   
+    def switch_to_toss_frame(self):
+        if self.back_to_toss_callback:
+            self.back_to_toss_callback(self.team_names)  # Pass team_names back to the toss frame
+            
+class TossFrame(ctk.CTkFrame):
+    def __init__(self, master, team_names):
+        super().__init__(master)
+        self.team_names = team_names
 
+        self.toss_label = ctk.CTkLabel(self, text="Toss Time! Click the button to determine batting and bowling teams.")
+        self.toss_label.pack(pady=10)
+
+        self.toss_button = ctk.CTkButton(self, text="Toss", command=self.perform_toss)
+        self.toss_button.pack(pady=10)
+
+        self.result_label = ctk.CTkLabel(self, text="")
+        self.result_label.pack(pady=10)
+
+    def perform_toss(self):
+        batting_team = random.choice(self.team_names)
+        bowling_team = self.team_names[0] if batting_team != self.team_names[0] else self.team_names[1]
+        toss_result = f"{batting_team} won the toss and chose to bat.\n{bowling_team} will be bowling."
+        self.result_label.configure(text=toss_result)
 
 # Create and run the application
 app = App()
