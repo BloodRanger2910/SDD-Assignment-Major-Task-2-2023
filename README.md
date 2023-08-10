@@ -2,7 +2,10 @@
 Pre-Planning Document
 https://docs.google.com/document/d/1_8QaEtQlPeBZdrTp0DiRfZLC7yUuSQK_xC155r-6DUQ/edit?usp=sharing
 
-Assesment Task Notification + Marking Criteria
+Software Definition Document
+https://docs.google.com/document/d/1BVf6xFqDDYNm-My0MyS5kSrXiMjc8_yMruHblD8BAc4/edit?usp=sharing
+
+Assessment Task Notification + Marking Criteria
 https://docs.google.com/document/d/100USxqvRZlFTJRk7exb_-Ka7tHNJzmLpmFUz3c1ly7E/edit
 
 Solutions Document
