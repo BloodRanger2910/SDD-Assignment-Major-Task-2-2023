@@ -233,58 +233,72 @@ class TossFrame(ctk.CTkFrame):
 class ScoringGameFrame(ctk.CTkFrame):
     def __init__(self, master):
         global team1name, team2name, player1names, player2names, batting_team, bowling_team, TeamTabs
-        self.batting_team = batting_team
-        self.bowling_team = bowling_team
-        self.battersOut = []
-        self.player_runs = {}  # Dictionary to store player runs
-        self.player_balls = {}  # Dictionary to store player balls
-        self.teamRuns = 0
-        self.wideBalls = 0
-        self.teamNoBalls = 0
-        self.teamWickets = 0
-        self.overs = 0
-        self.totalBalls = 0
-        self.runs = 0  # Initialize the 'runs' attribute
-        self.balls = 0  # Initialize the 'balls' attribute
-        self.current_batter = None
-        self.current_bowler = None
+        self.tab1batting_team = batting_team
+        self.tab1bowling_team = bowling_team
+        self.t1battersOut = []
+        self.t1player_runs = {}  # Dictionary to store player runs
+        self.t1player_balls = {}  # Dictionary to store player balls
+        self.t1teamRuns = 0
+        self.t1wideBalls = 0
+        self.t1teamNoBalls = 0
+        self.t1teamWickets = 0
+        self.t1overs = 0
+        self.t1totalBalls = 0
+        self.t1runs = 0  # Initialize the 'runs' attribute
+        self.t1balls = 0  # Initialize the 'balls' attribute
+        self.t1current_batter = None
+        self.t1current_bowler = None
+        
+        self.tab2batting_team = bowling_team
+        self.tab2bowling_team = batting_team
+        self.t2battersOut = []
+        self.t2player_runs = {}  # Dictionary to store player runs
+        self.t2player_balls = {}  # Dictionary to store player balls
+        self.t2teamRuns = 0
+        self.t2wideBalls = 0
+        self.t2teamNoBalls = 0
+        self.t2teamWickets = 0
+        self.t2overs = 0
+        self.t2totalBalls = 0
+        self.t2runs = 0  # Initialize the 'runs' attribute
+        self.t2balls = 0  # Initialize the 'balls' attribute
+        self.t2current_batter = None
+        self.t2current_bowler = None
         
         ctk.CTkFrame.__init__(self, master, width=900, height=700)
-        
-        OverallFrame = ctk.CTkFrame(master=self)
-        OverallFrame.pack(padx=20, pady=10, fill=tk.X)
         TeamTabs = ctk.CTkTabview(master=self)
-#        TeamTabs.pack(padx=20, pady=5, expand=True, fill=tk.BOTH)
-        TeamTabs.add(self.batting_team)
-        TeamTabs.add(self.bowling_team)
+        TeamTabs.pack(padx=20, pady=5, expand=True, fill=tk.BOTH)
+        Team1Tab = TeamTabs.add(self.tab1batting_team)
+        Team2Tab = TeamTabs.add(self.tab1bowling_team)
         
 
+    #This entire section is dedicated to Team1Tab
         # Runs and Balls Label
-        self.runs_label = ctk.CTkLabel(self, text=f"Runs: {self.runs}")
+        self.runs_label = ctk.CTkLabel(Team1Tab, text=f"Runs: {self.t1runs}")
         self.runs_label.pack(pady=10)
-        self.balls_label = ctk.CTkLabel(self, text=f"Balls: {self.runs}")
+        self.balls_label = ctk.CTkLabel(Team1Tab, text=f"Balls: {self.t1runs}")
         self.balls_label.pack(pady=10)
         
         # Initialize player_runs and player_balls dictionaries
         for player in player1names + player2names:
-            self.player_runs[player] = 0
-            self.player_balls[player] = 0
+            self.t1player_runs[player] = 0
+            self.t1player_balls[player] = 0
             
          # Batting and Bowling Team Labels
-        self.batting_label = ctk.CTkLabel(self, text=f"Batting: {self.batting_team}")
+        self.batting_label = ctk.CTkLabel(Team1Tab, text=f"Batting: {self.tab1batting_team}")
         self.batting_label.pack(pady=10)
-        self.bowling_label = ctk.CTkLabel(self, text=f"Bowling: {self.bowling_team}")
+        self.bowling_label = ctk.CTkLabel(Team1Tab, text=f"Bowling: {self.tab1bowling_team}")
         self.bowling_label.pack(pady=10)
 
         # Labels next to player selection ComboBoxes
-        self.batter_label = ctk.CTkLabel(self, text="Select Batter:")
+        self.batter_label = ctk.CTkLabel(Team1Tab, text="Select Batter:")
         self.batter_label.pack(pady=5)
-        self.batter_selection = ctk.CTkComboBox(self, values=player1names if self.batting_team == team1name else player2names)
+        self.batter_selection = ctk.CTkComboBox(Team1Tab, values=player1names if self.tab1batting_team == team1name else player2names)
         self.batter_selection.pack(pady=5)
         
-        self.bowler_label = ctk.CTkLabel(self, text="Select Bowler:")
+        self.bowler_label = ctk.CTkLabel(Team1Tab, text="Select Bowler:")
         self.bowler_label.pack(pady=5)
-        self.bowler_selection = ctk.CTkComboBox(self, values=player1names if self.bowling_team == team1name else player2names)
+        self.bowler_selection = ctk.CTkComboBox(Team1Tab, values=player1names if self.tab1bowling_team == team1name else player2names)
         self.bowler_selection.pack(pady=5)
         
         # Bind the ComboboxSelected event to update selected batter and bowler
@@ -292,51 +306,69 @@ class ScoringGameFrame(ctk.CTkFrame):
         self.bowler_selection.bind("<<ComboboxSelected>>", self.update_current_bowler)
         
         # Buttons for Runs and Actions
-        run_buttons_frame = ctk.CTkFrame(self)
+        run_buttons_frame = ctk.CTkFrame(Team1Tab, fg_color="transparent")
         run_buttons_frame.pack(pady=10)
 
         for i in range(1, 7):
+            run_buttons_frame.grid_columnconfigure(i, weight=1)
             run_button = ctk.CTkButton(run_buttons_frame, text=str(i), command=lambda i=i: self.add_runs(i))
-            run_button.pack(side="left", padx=5)
+            run_button.grid(row=0, column=i, padx=2, pady=2)
+            
+        for i in range(1, 7):
+            run_buttons_frame.grid_columnconfigure(i, weight=1)
+            run_button = ctk.CTkButton(run_buttons_frame, text=str(i), command=lambda i=i: self.remove_runs(i))
+            run_button.grid(row=1, column=i, padx=2, pady=2)
         
-        remove_runs_button = ctk.CTkButton(run_buttons_frame, text="Remove Runs", command=self.remove_runs)
-        remove_runs_button.pack(side="left", padx=5)
+        runsLabel = ctk.CTkLabel(run_buttons_frame, text="Add Runs:")
+        runsLabel.grid(row=0, column=0)
+        runsRemoveLabel = ctk.CTkLabel(run_buttons_frame, text="Remove Runs:")
+        runsRemoveLabel.grid(row=1, column=0)
+        extrasLabel = ctk.CTkLabel(run_buttons_frame, text="Extras:")
+        extrasLabel.grid(row=2, column=0)
         
-        no_ball_button = ctk.CTkButton(self, text="No Ball", command=self.add_no_ball)
-        no_ball_button.pack(pady=5)
+        no_ball_button = ctk.CTkButton(run_buttons_frame, text="No Ball", command=self.add_no_ball)
+        no_ball_button.grid(row=2, column=1, padx=2, pady=2)
 
-        wide_button = ctk.CTkButton(self, text="Wide", command=self.add_wide)
-        wide_button.pack(pady=5)
+        wide_button = ctk.CTkButton(run_buttons_frame, text="Wide", command=self.add_wide)
+        wide_button.grid(row=2, column=2, padx=2, pady=2)
 
-        wicket_button = ctk.CTkButton(self, text="Wicket", command=self.record_wicket)
-        wicket_button.pack(pady=5)
+        wicket_button = ctk.CTkButton(run_buttons_frame, text="Wicket", command=self.record_wicket)
+        wicket_button.grid(row=3, column=1, padx=2, pady=2)
 
     def add_runs(self, runs):
         # Update runs and balls for the current batter
-        if self.current_batter:
-            self.player_runs[self.current_batter] += 1
-            self.player_balls[self.current_batter] += 1
-        self.runs += runs
-        self.balls += 1
+        if self.t1current_batter:
+            self.t1player_runs[self.t1current_batter] += 1
+            self.t1player_balls[self.t1current_batter] += 1
+        self.t1runs += runs
+        self.t1balls += 1
         self.update_display()
 
     def remove_runs(self):
-        if self.runs > 0:
-            self.runs -= 1
+        if self.t1runs > 0:
+            self.t1runs -= 1
             self.update_display()
+        # Update runs and balls for the current batter
+        if self.t1current_batter:
+            self.t1player_runs[self.t1current_batter] += 1
+            self.t1player_balls[self.t1current_batter] += 1
+        self.t1runs += runs
+        self.t1balls += 1
+        self.update_display()
+
 
     def add_no_ball(self):
         # Update runs and balls for the current batter
-        if self.current_batter:
-            self.player_runs[self.current_batter] += 1
-            self.player_balls[self.current_batter] += 1
-        self.runs += 1
-        self.balls += 1
+        if self.t1current_batter:
+            self.t1player_runs[self.t1current_batter] += 1
+            self.t1player_balls[self.t1current_batter] += 1
+        self.t1runs += 1
+        self.t1balls += 1
         self.update_display()
 
     def add_wide(self):
-        self.runs += 1
-        self.balls += 1
+        self.t1runs += 1
+        self.t1balls += 1
         self.update_display()
 
     def record_wicket(self):
@@ -344,38 +376,38 @@ class ScoringGameFrame(ctk.CTkFrame):
         wicket_popup.title("Record Wicket")
         wicket_popup.geometry("300x150")
 
-        wicket_label = ctk.CTkLabel(wicket_popup, text=f"{self.current_batter} out by {self.current_bowler}")
+        wicket_label = ctk.CTkLabel(wicket_popup, text=f"{self.t1current_batter} out by {self.t1current_bowler}")
         wicket_label.pack(pady=10)
 
         remove_batter_button = ctk.CTkButton(wicket_popup, text="Remove Batter", command=self.remove_batter)
         remove_batter_button.pack(pady=5)
         
     def update_current_batter(self, event):
-        self.current_batter = self.batter_selection.get()
-        if self.current_batter:
+        self.tab1current_batter = self.batter_selection.get()
+        if self.tab1current_batter:
             self.update_display()
 
     def update_current_bowler(self, event):
-        self.current_bowler = self.bowler_selection.get()
-        if self.current_bowler:
+        self.tab1current_bowler = self.bowler_selection.get()
+        if self.tab1current_bowler:
             self.update_display()
 
     def remove_batter(self):
-        if self.current_batter in player1names:
-            player1names.remove(self.current_batter)
-        if self.current_batter in player2names:
-            player2names.remove(self.current_batter)
+        if self.t1current_batter in player1names:
+            player1names.remove(self.t1current_batter)
+        if self.t1current_batter in player2names:
+            player2names.remove(self.t1current_batter)
 
     def update_display(self):
-        self.batting_label.configure(text=f"Batting: {self.batting_team}")
-        self.bowling_label.configure(text=f"Bowling: {self.bowling_team}")
-        self.runs_label.configure(text=f"Runs: {self.runs}")
-        self.balls_label.configure(text=f"Balls: {self.balls}")
+        self.batting_label.configure(text=f"Batting: {self.tab1batting_team}")
+        self.bowling_label.configure(text=f"Bowling: {self.tab1bowling_team}")
+        self.runs_label.configure(text=f"Runs: {self.t1runs}")
+        self.balls_label.configure(text=f"Balls: {self.t1balls}")
     
     def display_player_statistics(self):
         stats = "Player Statistics:\n"
-        for player in self.player_runs.keys():
-            stats += f"{player}: Runs - {self.player_runs[player]}, Balls - {self.player_balls[player]}\n"
+        for player in self.t1player_runs.keys():
+            stats += f"{player}: Runs - {self.t1player_runs[player]}, Balls - {self.t1player_balls[player]}\n"
         msg.showinfo("Player Statistics", stats)
         
         
